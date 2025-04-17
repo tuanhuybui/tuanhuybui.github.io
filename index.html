@@ -21,10 +21,12 @@
     <link rel="stylesheet" href="https://atelierdesign.be/wp-content/themes/ad-final/css/swiper.min.css">
     <style>
         :root {
-            --primary-color: #6eff00;
-            --text-color: #141414;
-            --bg-color: #ffffff;
-            --bg-grey: #f5f5f5;
+            --primary-color: #000000;
+            --secondary-color: #FFFFFF;
+            --text-color: #000000;
+            --bg-color: #FFFFFF;
+            --bg-grey: #F5F5F5;
+            --border-color: #E0E0E0;
         }
 
         body {
@@ -59,6 +61,10 @@
             font-size: 2rem;
         }
 
+        h3 {
+            font-size: 1.5rem;
+        }
+
         p {
             line-height: 1.6;
             margin: 0 0 20px;
@@ -71,21 +77,21 @@
         }
 
         a:hover {
-            color: #4caf50;
+            color: #666;
         }
 
         .btn {
             display: inline-block;
             padding: 12px 24px;
             background: var(--primary-color);
-            color: #fff;
+            color: var(--secondary-color);
             border-radius: 50px;
             font-weight: 700;
             transition: background 0.3s;
         }
 
         .btn:hover {
-            background: #4caf50;
+            background: #333;
         }
 
         .hero {
@@ -95,7 +101,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
+            color: var(--secondary-color);
             position: relative;
         }
 
@@ -106,7 +112,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
         }
 
         .hero-content {
@@ -114,16 +120,22 @@
             z-index: 1;
         }
 
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .portfolio-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 40px;
         }
 
-        .portfolio-item {
+        .portfolio-item:last-child {
+            border-bottom: none;
+        }
+
+        .portfolio-item .img-box {
+            flex: 0 0 50%;
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
         }
 
         .portfolio-item img {
@@ -134,28 +146,116 @@
         }
 
         .portfolio-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
-        .portfolio-overlay {
+        .portfolio-item .txt-box {
+            flex: 0 0 50%;
+            padding: 20px;
+        }
+
+        .portfolio-item .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .portfolio-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-item p {
+            color: #666;
+        }
+
+        .portfolio-item .underline-link {
+            display: inline-block;
+            position: relative;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .portfolio-item .underline-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .portfolio-item .underline-link:hover::after {
+            width: 100%;
+        }
+
+        .services-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-item {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .service-item a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .service-item a:hover {
+            border-color: var(--primary-color);
+        }
+
+        .service-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .service-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #666;
+        }
+
+        .service-item li {
+            margin-bottom: 5px;
+        }
+
+        .service-item .viewmore {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-item .viewmore svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary-color);
+        }
+
+        .service-item .img-hover-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             opacity: 0;
             transition: opacity 0.3s;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
+            z-index: -1;
         }
 
-        .portfolio-item:hover .portfolio-overlay {
+        .service-item:hover .img-hover-container {
             opacity: 1;
         }
 
@@ -178,7 +278,7 @@
         .form-group textarea {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 5px;
             font-size: 1rem;
         }
@@ -206,7 +306,7 @@
             left: 0;
             width: 40px;
             height: 40px;
-            background: var(--primary-color);
+            border: 2px solid var(--primary-color);
             border-radius: 50%;
             opacity: 0.3;
             pointer-events: none;
@@ -228,6 +328,24 @@
 
             .section {
                 padding: 40px 0;
+            }
+
+            .portfolio-item {
+                flex-direction: column;
+            }
+
+            .portfolio-item .img-box,
+            .portfolio-item .txt-box {
+                flex: 0 0 100%;
+            }
+
+            .service-item a {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .service-item .viewmore {
+                margin-top: 20px;
             }
         }
     </style>
@@ -263,35 +381,128 @@
     <section class="section portfolio bg-grey" id="portfolio">
         <div class="container">
             <h2 data-aos="fade-up">My Work</h2>
-            <div class="portfolio-grid">
+            <div class="portfolio-list">
                 <!-- Project 1 -->
                 <div class="portfolio-item" data-aos="fade-up">
-                    <img src="https://atelierdesign.be/wp-content/uploads/2024/10/fipra-thubnail-1366x874.jpg" alt="Fipra Project">
-                    <div class="portfolio-overlay">
-                        <h3>Fipra</h3>
-                        <p>Redefining strategic communication through a new visual identity and website.</p>
-                        <a href="https://atelierdesign.be/fipra/" class="btn">View Project</a>
+                    <div class="img-box">
+                        <a href="https://atelierdesign.be/fipra/">
+                            <img src="https://atelierdesign.be/wp-content/uploads/2024/10/fipra-thubnail-1366x874.jpg" alt="Fipra Project">
+                        </a>
+                    </div>
+                    <div class="txt-box">
+                        <div class="number" data-aos="fade-up">01</div>
+                        <h3 data-aos="fade-up" data-aos-delay="100">Fipra</h3>
+                        <p data-aos="fade-up" data-aos-delay="200">Redefining strategic communication through a new visual identity and website.</p>
+                        <a href="https://atelierdesign.be/fipra/" class="underline-link" data-aos="fade-up" data-aos-delay="300">View Project</a>
                     </div>
                 </div>
                 <!-- Project 2 -->
-                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://atelierdesign.be/wp-content/uploads/2024/06/Brochure_Cover_on_Red_Background-1-1366x909.jpg" alt="EORTC Project">
-                    <div class="portfolio-overlay">
-                        <h3>EORTC</h3>
-                        <p>Highlighting therapeutic advances in cancer treatment through a new annual report.</p>
-                        <a href="https://atelierdesign.be/eortc/" class="btn">View Project</a>
+                <div class="portfolio-item" data-aos="fade-up">
+                    <div class="img-box">
+                        <a href="https://atelierdesign.be/eortc/">
+                            <img src="https://atelierdesign.be/wp-content/uploads/2024/06/Brochure_Cover_on_Red_Background-1-1366x909.jpg" alt="EORTC Project">
+                        </a>
+                    </div>
+                    <div class="txt-box">
+                        <div class="number" data-aos="fade-up">02</div>
+                        <h3 data-aos="fade-up" data-aos-delay="100">EORTC</h3>
+                        <p data-aos="fade-up" data-aos-delay="200">Highlighting therapeutic advances in cancer treatment through a new annual report.</p>
+                        <a href="https://atelierdesign.be/eortc/" class="underline-link" data-aos="fade-up" data-aos-delay="300">View Project</a>
                     </div>
                 </div>
                 <!-- Project 3 -->
-                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://atelierdesign.be/wp-content/uploads/2024/11/sothebys-cover-final-2-MIN-1366x946.jpg" alt="Sotheby's Realty Project">
-                    <div class="portfolio-overlay">
-                        <h3>Sotheby's Realty Belgium</h3>
-                        <p>Behind refined simplicity, a work of precision.</p>
-                        <a href="https://atelierdesign.be/sothebys-realty-belgium/" class="btn">View Project</a>
+                <div class="portfolio-item" data-aos="fade-up">
+                    <div class="img-box">
+                        <a href="https://atelierdesign.be/sothebys-realty-belgium/">
+                            <img src="https://atelierdesign.be/wp-content/uploads/2024/11/sothebys-cover-final-2-MIN-1366x946.jpg" alt="Sotheby's Realty Project">
+                        </a>
+                    </div>
+                    <div class="txt-box">
+                        <div class="number" data-aos="fade-up">03</div>
+                        <h3 data-aos="fade-up" data-aos-delay="100">Sotheby's Realty Belgium</h3>
+                        <p data-aos="fade-up" data-aos-delay="200">Behind refined simplicity, a work of precision.</p>
+                        <a href="https://atelierdesign.be/sothebys-realty-belgium/" class="underline-link" data-aos="fade-up" data-aos-delay="300">View Project</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- What I Do Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <h2 data-aos="fade-up">What I Do</h2>
+            <ul class="services-list">
+                <li class="service-item" data-aos="fade-up">
+                    <a href="#services">
+                        <div>
+                            <h3>Communication Strategy</h3>
+                            <ul>
+                                <li>Branding & Positioning</li>
+                                <li>Digital Strategy</li>
+                                <li>Content Strategy</li>
+                                <li>Naming</li>
+                                <li>Research & Analytics</li>
+                            </ul>
+                        </div>
+                        <div class="viewmore">
+                            <svg class="svg-short-arrow-dims" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            <span>View more</span>
+                        </div>
+                    </a>
+                    <div class="img-hover-container">
+                        <div class="video-box">
+                            <video class="object-fit-img" loop muted playsinline data-src="https://atelierdesign.be/wp-content/uploads/2020/05/branding-2000.mp4"></video>
+                        </div>
+                    </div>
+                </li>
+                <li class="service-item" data-aos="fade-up" data-aos-delay="200">
+                    <a href="#services">
+                        <div>
+                            <h3>Brand Identity</h3>
+                            <ul>
+                                <li>Logotype</li>
+                                <li>Printed Materials</li>
+                                <li>Storytelling & Copywriting</li>
+                                <li>Graphic Design</li>
+                                <li>Photography</li>
+                            </ul>
+                        </div>
+                        <div class="viewmore">
+                            <svg class="svg-short-arrow-dims" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            <span>View more</span>
+                        </div>
+                    </a>
+                    <div class="img-hover-container">
+                        <div class="video-box">
+                            <video class="object-fit-img" loop muted playsinline data-src="https://atelierdesign.be/wp-content/uploads/2020/05/print-2000.mp4"></video>
+                        </div>
+                    </div>
+                </li>
+                <li class="service-item" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#services">
+                        <div>
+                            <h3>Website Creation</h3>
+                            <ul>
+                                <li>Website Creation</li>
+                                <li>Eshop</li>
+                                <li>SEO</li>
+                                <li>Ergonomy (UX/UI)</li>
+                                <li>CRM API Integration</li>
+                            </ul>
+                        </div>
+                        <div class="viewmore">
+                            <svg class="svg-short-arrow-dims" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                            <span>View more</span>
+                        </div>
+                    </a>
+                    <div class="img-hover-container">
+                        <div class="video-box">
+                            <video class="object-fit-img" loop muted playsinline data-src="https://atelierdesign.be/wp-content/uploads/2020/05/digital-2000.mp4"></video>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </section>
 
@@ -321,7 +532,7 @@
     <!-- Footer -->
     <footer class="section">
         <div class="container">
-            <p>&copy; 2025 Nguyễn Văn A. All rights reserved.</p>
+            <p>© 2025 Nguyễn Văn A. All rights reserved.</p>
             <div class="social-links">
                 <a href="https://linkedin.com/in/nguyenvana" target="_blank" rel="noopener">LinkedIn</a> |
                 <a href="mailto:nguyen.van.a@example.com">Email</a>
