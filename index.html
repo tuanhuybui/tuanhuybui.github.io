@@ -2,59 +2,367 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huy Bui | Portfolio</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nguyễn Văn A | Web Developer & UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Nguyễn Văn A, a passionate Web Developer and UI/UX Designer based in Vietnam, showcasing creative and innovative projects.">
+    <meta name="theme-color" content="#000000">
+    <meta name="robots" content="max-image-preview:large">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-32.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="favicon-180.png" sizes="180x180">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="https://atelierdesign.be/wp-content/themes/ad-final/css/swiper.min.css">
+    <style>
+        :root {
+            --primary-color: #6eff00;
+            --text-color: #141414;
+            --bg-color: #ffffff;
+            --bg-grey: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin: 0 0 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4caf50;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #4caf50;
+        }
+
+        .hero {
+            background: url('https://atelierdesign.be/wp-content/uploads/2019/07/home-scaled-1200x630.jpg') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+            .cursor, .follower {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#home" class="logo">Huy Bui</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="menu-toggle">☰</div>
-        </nav>
-    </header>
+    <!-- Cursor Effects -->
+    <div class="cursor"></div>
+    <div class="follower"></div>
 
-    <section id="home" class="hero">
-        <img src="assets/images/hero-bg.jpg" alt="Hero Background">
+    <!-- Hero Section -->
+    <section class="hero" data-aos="fade-in">
         <div class="hero-content">
-            <img src="assets/images/avatar.jpg" alt="Avatar" class="avatar">
-            <h1>Hello, I'm Huy Bui</h1>
-            <p>Business Developer & Web Enthusiast</p>
+            <h1 data-aos="fade-up">Nguyễn Văn A</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Web Developer & UI/UX Designer</p>
+            <a href="#contact" class="btn" data-aos="fade-up" data-aos-delay="400">Get in Touch</a>
         </div>
     </section>
 
-    <section id="about" class="about">
-        <h2>About Me</h2>
-        <p>I am a dynamic business developer with over 8 years of experience in banking, hospitality, and startup environments. Skilled in project management, client relations, and digital marketing.</p>
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 data-aos="fade-up">About Me</h2>
+            <p data-aos="fade-up" data-aos-delay="200">
+                I'm Nguyễn Văn A, a passionate Web Developer and UI/UX Designer based in Vietnam. With a strong background in creating user-friendly and visually appealing digital experiences, I specialize in building responsive websites and designing intuitive interfaces. My goal is to deliver projects that not only meet but exceed client expectations.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="400">
+                Skills: HTML, CSS, JavaScript, React, Figma, Adobe XD, WordPress
+            </p>
+        </div>
     </section>
 
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            <div class="project-item">
-                <img src="assets/images/project1.jpg" alt="Project 1">
-                <h3>SoulsHouse Homestay</h3>
-                <p>Built and managed a chain of 4 homestays, achieving 1B VND annual revenue.</p>
+    <!-- Portfolio Section -->
+    <section class="section portfolio bg-grey" id="portfolio">
+        <div class="container">
+            <h2 data-aos="fade-up">My Work</h2>
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-item" data-aos="fade-up">
+                    <img src="https://atelierdesign.be/wp-content/uploads/2024/10/fipra-thubnail-1366x874.jpg" alt="Fipra Project">
+                    <div class="portfolio-overlay">
+                        <h3>Fipra</h3>
+                        <p>Redefining strategic communication through a new visual identity and website.</p>
+                        <a href="https://atelierdesign.be/fipra/" class="btn">View Project</a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://atelierdesign.be/wp-content/uploads/2024/06/Brochure_Cover_on_Red_Background-1-1366x909.jpg" alt="EORTC Project">
+                    <div class="portfolio-overlay">
+                        <h3>EORTC</h3>
+                        <p>Highlighting therapeutic advances in cancer treatment through a new annual report.</p>
+                        <a href="https://atelierdesign.be/eortc/" class="btn">View Project</a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://atelierdesign.be/wp-content/uploads/2024/11/sothebys-cover-final-2-MIN-1366x946.jpg" alt="Sotheby's Realty Project">
+                    <div class="portfolio-overlay">
+                        <h3>Sotheby's Realty Belgium</h3>
+                        <p>Behind refined simplicity, a work of precision.</p>
+                        <a href="https://atelierdesign.be/sothebys-realty-belgium/" class="btn">View Project</a>
+                    </div>
+                </div>
             </div>
-            <!-- Add more project items as needed -->
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:huybui@example.com">huybui@example.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/huybui">linkedin.com/in/huybui</a></p>
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 data-aos="fade-up">Contact Me</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Interested in working together? Fill out the form below, and I'll get back to you soon!</p>
+            <form class="contact-form" action="mailto:nguyen.van.a@example.com" method="post" enctype="text/plain" data-aos="fade-up" data-aos-delay="400">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Huy Bui. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="section">
+        <div class="container">
+            <p>&copy; 2025 Nguyễn Văn A. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/nguyenvana" target="_blank" rel="noopener">LinkedIn</a> |
+                <a href="mailto:nguyen.van.a@example.com">Email</a>
+            </div>
+        </div>
     </footer>
 
-    <script src="scripts/script.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 900,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button')) {
+                follower.style.opacity = '0.5';
+                follower.style.width = '60px';
+                follower.style.height = '60px';
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button')) {
+                follower.style.opacity = '0.3';
+                follower.style.width = '40px';
+                follower.style.height = '40px';
+            }
+        });
+    </script>
 </body>
 </html>
