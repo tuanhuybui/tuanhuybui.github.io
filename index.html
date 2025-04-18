@@ -27,6 +27,7 @@
             --bg-color: #FFFFFF;
             --bg-grey: #F5F5F5;
             --border-color: #E0E0E0;
+            --menu-bg-color: #000000;
         }
 
         * {
@@ -151,7 +152,7 @@
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg);
+            transform: rotate(45deg) scale(1.1);
             top: 9px;
         }
 
@@ -160,7 +161,7 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg);
+            transform: rotate(-45deg) scale(1.1);
             top: 9px;
         }
 
@@ -170,7 +171,7 @@
             right: -100%;
             width: 100%;
             height: 100%;
-            background: var(--secondary-color);
+            background: var(--menu-bg-color);
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -202,8 +203,15 @@
         .mobile-nav .nav-list li a {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             position: relative;
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .mobile-nav .nav-list li a:hover {
+            transform: translateY(-10px);
+            color: #ccc;
         }
 
         .mobile-nav .nav-list li a::after {
@@ -213,7 +221,7 @@
             left: 0;
             width: 0;
             height: 3px;
-            background: var(--primary-color);
+            background: var(--secondary-color);
             transition: width 0.3s ease;
         }
 
@@ -229,6 +237,18 @@
             font-size: 1.2rem;
         }
 
+        .mobile-social-links a,
+        .mobile-lang-switcher a {
+            color: var(--secondary-color);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .mobile-social-links a:hover,
+        .mobile-lang-switcher a:hover {
+            color: #ccc;
+            transform: translateY(-5px);
+        }
+
         .mobile-lang-switcher a.active {
             font-weight: 700;
         }
@@ -240,13 +260,14 @@
             background: none;
             border: none;
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             cursor: pointer;
-            transition: color 0.3s;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .close-btn:hover {
-            color: #666;
+            color: #ccc;
+            transform: scale(1.1);
         }
 
         /* Cursor */
@@ -618,6 +639,10 @@
             .contact-form {
                 flex: 0 0 100%;
             }
+
+            .mobile-nav .nav-list li a {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -626,7 +651,7 @@
     <nav class="nav">
         <div class="container">
             <a href="#" class="nav-logo">Nguyễn Văn A</a>
-            <button class="hamburger">
+            <button class="hamburger" aria-label="Open menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -634,7 +659,7 @@
         </div>
     </nav>
     <div class="mobile-nav">
-        <button class="close-btn">✕</button>
+        <button class="close-btn" aria-label="Close menu">✕</button>
         <div class="mobile-nav-content">
             <ul class="nav-list">
                 <li><a href="#about" class="hover-link02">About</a></li>
@@ -887,7 +912,7 @@
             });
         });
 
-        // Basic Filter Functionality (Placeholder)
+        // Basic Filter Functionality
         document.querySelectorAll('.filter-options a').forEach(filter => {
             filter.addEventListener('click', (e) => {
                 e.preventDefault();
