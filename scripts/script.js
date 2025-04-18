@@ -1,64 +1,68 @@
 // Initialize AOS
-        AOS.init({
-            duration: 900,
-            easing: 'ease-in-out',
-            once: true
-        });
+AOS.init({
+    duration: 1000,
+    easing: 'ease-in-out',
+    once: true
+});
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.follower');
+// Custom Cursor
+const cursor = document.querySelector('.cursor');
+const follower = document.querySelector('.follower');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            follower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        });
+document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    follower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
 
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.hover-link02, .btn')) {
-                follower.classList.add('active');
-            }
-        });
+document.querySelectorAll('.hover-link02, .btn, .portfolio-item a').forEach(elem => {
+    elem.addEventListener('mouseenter', () => {
+        follower.classList.add('active');
+    });
+    elem.addEventListener('mouseleave', () => {
+        follower.classList.remove('active');
+    });
+});
 
-        document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('.hover-link02, .btn')) {
-                follower.classList.remove('active');
-            }
-        });
+// Mobile Menu
+const hamburger = document.querySelector('.hamburger');
+const mobileNav = document.querySelector('.mobile-nav');
+const body = document.body;
 
-        // Mobile Menu
-        const hamburger = document.querySelector('.hamburger');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const closeBtn = document.querySelector('.close-btn');
-        const body = document.body;
+hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    body.classList.toggle('nav-open');
+});
 
-        hamburger.addEventListener('click', () => {
-            mobileNav.classList.add('active');
-            hamburger.classList.add('active');
-            body.classList.add('nav-open');
-        });
+mobileNav.querySelectorAll('.nav-list a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNav.classList.remove('active');
+        hamburger.classList.remove('active');
+        body.classList.remove('nav-open');
+    });
+});
 
-        closeBtn.addEventListener('click', () => {
-            mobileNav.classList.remove('active');
-            hamburger.classList.remove('active');
-            body.classList.remove('nav-open');
-        });
+// Filter Toggle
+document.querySelectorAll('.filter-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        const options = toggle.nextElementSibling;
+        options.classList.toggle('active');
+    });
+});
 
-        // Close menu when clicking a link
-        mobileNav.querySelectorAll('.nav-list a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-                hamburger.classList.remove('active');
-                body.classList.remove('nav-open');
-            });
-        });
-
-        // Add scrolled class to nav on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
+// Basic Filter Functionality
+document.querySelectorAll('.filter-options a').forEach(filter => {
+    filter.addEventListener('click', (e) => {
+        e.preventDefault();
+        const filterValue = filter.getAttribute('data-filter');
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            const service = item.getAttribute('data-service');
+            const sector = item.getAttribute('data-sector');
+            if (filterValue === 'all' || service === filterValue || sector === filterValue) {
+                item.style.display = 'block';
             } else {
-                nav.classList.remove('scrolled');
+                item.style.display = 'none';
             }
         });
+    });
+});
