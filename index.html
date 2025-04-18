@@ -84,28 +84,6 @@
             color: #666;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 12px 24px;
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            border-radius: 50px;
-            font-weight: 700;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #333;
-        }
-
-        .btn svg {
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-            fill: var(--secondary-color);
-        }
-
         /* Navigation */
         .nav {
             position: fixed;
@@ -114,7 +92,11 @@
             width: 100%;
             background: var(--secondary-color);
             z-index: 1000;
-            padding: 20px 0;
+            padding: 15px 0;
+            transition: background 0.3s;
+        }
+
+        .nav.scrolled {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -125,25 +107,57 @@
         }
 
         .nav-logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover {
+            color: #666;
         }
 
         .nav-list {
             list-style: none;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            gap: 30px;
             margin: 0;
             padding: 0;
         }
 
         .nav-list li a {
+            position: relative;
             font-weight: 500;
+            font-size: 1rem;
+            color: var(--primary-color);
             transition: color 0.3s;
         }
 
-        .nav-list li a:hover {
-            color: #666;
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-list li a:hover::after,
+        .nav-list li a.active::after {
+            width: 100%;
+        }
+
+        .nav-list .social-links,
+        .nav-list .lang-switcher {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-list .lang-switcher a.active {
+            font-weight: 700;
         }
 
         .hamburger {
@@ -151,8 +165,46 @@
             cursor: pointer;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            width: 30px;
+            height: 20px;
+            position: relative;
             z-index: 1100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
         }
 
         .mobile-nav {
@@ -165,23 +217,48 @@
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: right 0.3s ease;
+            transition: right 0.5s ease;
         }
 
         .mobile-nav.active {
             right: 0;
         }
 
+        .mobile-nav-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 40px 20px;
+        }
+
         .mobile-nav .nav-list {
             flex-direction: column;
-            gap: 30px;
+            gap: 40px;
             text-align: center;
         }
 
         .mobile-nav .nav-list li a {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .mobile-nav .nav-list li a::after {
+            bottom: -5px;
+            height: 3px;
+        }
+
+        .mobile-social-links,
+        .mobile-lang-switcher {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+        }
+
+        .mobile-lang-switcher a.active {
             font-weight: 700;
         }
 
@@ -191,8 +268,83 @@
             right: 20px;
             background: none;
             border: none;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
             cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #666;
+        }
+
+        /* Button and Link Hover Effects */
+        .hover-link02 {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            fill: var(--secondary-color);
+            transition: transform 0.3s;
+        }
+
+        .btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* Cursor */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            z-index: 2000;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+        }
+
+        .follower.active {
+            width: 60px;
+            height: 60px;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
@@ -202,6 +354,11 @@
 
             .hamburger {
                 display: block;
+            }
+
+            .cursor,
+            .follower {
+                display: none;
             }
         }
 
@@ -430,37 +587,7 @@
             min-height: 150px;
         }
 
-        /* Cursor */
-        .cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            z-index: 2000;
-            pointer-events: none;
-        }
-
-        .follower {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            opacity: 0.3;
-            pointer-events: none;
-            transition: all 0.2s ease;
-        }
-
         @media (max-width: 768px) {
-            .cursor, .follower {
-                display: none;
-            }
-
             h1 {
                 font-size: 2rem;
             }
@@ -509,22 +636,46 @@
         <div class="container">
             <a href="#" class="nav-logo">Nguyễn Văn A</a>
             <ul class="nav-list">
-                <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about" class="hover-link02">About</a></li>
+                <li><a href="#portfolio" class="hover-link02">Portfolio</a></li>
+                <li><a href="#services" class="hover-link02">Services</a></li>
+                <li><a href="#contact" class="hover-link02">Contact</a></li>
+                <!-- Social Links -->
+                <li class="social-links">
+                    <a href="https://linkedin.com/in/nguyenvana" target="_blank" rel="noopener" class="hover-link02">LinkedIn</a>
+                    <a href="mailto:nguyen.van.a@example.com" class="hover-link02">Email</a>
+                </li>
+                <!-- Language Switcher -->
+                <li class="lang-switcher">
+                    <a href="#" class="hover-link02 active">EN</a>
+                    <a href="#" class="hover-link02">VN</a>
+                </li>
             </ul>
-            <button class="hamburger">☰</button>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
     <div class="mobile-nav">
         <button class="close-btn">✕</button>
-        <ul class="nav-list">
-            <li><a href="#about">About</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="mobile-nav-content">
+            <ul class="nav-list">
+                <li><a href="#about" class="hover-link02">About</a></li>
+                <li><a href="#portfolio" class="hover-link02">Portfolio</a></li>
+                <li><a href="#services" class="hover-link02">Services</a></li>
+                <li><a href="#contact" class="hover-link02">Contact</a></li>
+            </ul>
+            <div class="mobile-social-links">
+                <a href="https://linkedin.com/in/nguyenvana" target="_blank" rel="noopener" class="hover-link02">LinkedIn</a>
+                <a href="mailto:nguyen.van.a@example.com" class="hover-link02">Email</a>
+            </div>
+            <div class="mobile-lang-switcher">
+                <a href="#" class="hover-link02 active">EN</a>
+                <a href="#" class="hover-link02">VN</a>
+            </div>
+        </div>
     </div>
 
     <!-- Cursor Effects -->
@@ -754,22 +905,18 @@
 
         document.addEventListener('mousemove', (e) => {
             cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            follower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+            follower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
         });
 
         document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('a, button')) {
-                follower.style.opacity = '0.5';
-                follower.style.width = '60px';
-                follower.style.height = '60px';
+            if (e.target.closest('.hover-link02, .btn')) {
+                follower.classList.add('active');
             }
         });
 
         document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('a, button')) {
-                follower.style.opacity = '0.3';
-                follower.style.width = '40px';
-                follower.style.height = '40px';
+            if (e.target.closest('.hover-link02, .btn')) {
+                follower.classList.remove('active');
             }
         });
 
@@ -781,23 +928,33 @@
 
         hamburger.addEventListener('click', () => {
             mobileNav.classList.add('active');
+            hamburger.classList.add('active');
             body.classList.add('nav-open');
-            hamburger.style.display = 'none';
         });
 
         closeBtn.addEventListener('click', () => {
             mobileNav.classList.remove('active');
+            hamburger.classList.remove('active');
             body.classList.remove('nav-open');
-            hamburger.style.display = 'block';
         });
 
         // Close menu when clicking a link
         mobileNav.querySelectorAll('.nav-list a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileNav.classList.remove('active');
+                hamburger.classList.remove('active');
                 body.classList.remove('nav-open');
-                hamburger.style.display = 'block';
             });
+        });
+
+        // Add scrolled class to nav on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
     </script>
 </body>
