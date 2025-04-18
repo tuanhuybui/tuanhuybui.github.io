@@ -38,6 +38,10 @@
             overflow-x: hidden;
         }
 
+        body.nav-open {
+            overflow: hidden;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -148,23 +152,52 @@
             background: none;
             border: none;
             font-size: 1.5rem;
+            z-index: 1100;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-color);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav .nav-list {
+            flex-direction: column;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .mobile-nav .nav-list li a {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
             .nav-list {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--secondary-color);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-list.active {
-                display: flex;
             }
 
             .hamburger {
@@ -484,6 +517,15 @@
             <button class="hamburger">☰</button>
         </div>
     </nav>
+    <div class="mobile-nav">
+        <button class="close-btn">✕</button>
+        <ul class="nav-list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Cursor Effects -->
     <div class="cursor"></div>
@@ -731,13 +773,31 @@
             }
         });
 
-        // Hamburger Menu
+        // Mobile Menu
         const hamburger = document.querySelector('.hamburger');
-        const navList = document.querySelector('.nav-list');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const closeBtn = document.querySelector('.close-btn');
+        const body = document.body;
 
         hamburger.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            hamburger.textContent = navList.classList.contains('active') ? '✕' : '☰';
+            mobileNav.classList.add('active');
+            body.classList.add('nav-open');
+            hamburger.style.display = 'none';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            body.classList.remove('nav-open');
+            hamburger.style.display = 'block';
+        });
+
+        // Close menu when clicking a link
+        mobileNav.querySelectorAll('.nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                body.classList.remove('nav-open');
+                hamburger.style.display = 'block';
+            });
         });
     </script>
 </body>
