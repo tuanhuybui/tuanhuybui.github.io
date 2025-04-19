@@ -194,14 +194,29 @@
         }
 
         .mobile-nav .nav-list {
+            display: flex; /* Ensure list is visible */
             flex-direction: column;
             gap: 30px;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            opacity: 1; /* Ensure visibility */
+        }
+
+        .mobile-nav .nav-list li {
+            list-style: none;
         }
 
         .mobile-nav .nav-list li a {
             font-size: 1.8rem;
             font-weight: 700;
+            color: var(--primary-color); /* Ensure text is visible */
+            display: block;
+            padding: 10px;
+        }
+
+        .mobile-nav .nav-list li a:hover {
+            color: #666;
         }
 
         .close-btn {
@@ -218,11 +233,15 @@
 
         @media (max-width: 768px) {
             .nav-list {
-                display: none;
+                display: none; /* Hide desktop nav list */
             }
 
             .hamburger {
                 display: block;
+            }
+
+            .mobile-nav .nav-list {
+                display: flex; /* Ensure mobile nav list is visible */
             }
         }
 
