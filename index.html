@@ -187,7 +187,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* No transition for instant appearance */
         }
 
         .mobile-nav.active {
@@ -207,12 +206,14 @@
 
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 30px;
+            right: 30px;
             background: none;
             border: none;
             font-size: 2rem;
             cursor: pointer;
+            z-index: 1001;
+            color: var(--primary-color);
         }
 
         @media (max-width: 768px) {
